@@ -19,7 +19,7 @@
             <%@include file="./include/sidebar.jspf" %>
             <div class="col-sm-3">
                 <fieldset class="terran-field">
-                    <legend><a href="/"> [테란 네트워크]</a></legend>
+                    <legend><a href="/">영양제 리스트</a></legend>
                     <table class="boardList" style="width: 100%;">
                         <tr><td><a href="/terranBoard/readPost?postNum=2">테란 종족특성</a></td></tr>
                         <tr><td><a href="/tVsZBoard/readPost?postNum=2">선엔베 업테란 운영</a></td></tr>
