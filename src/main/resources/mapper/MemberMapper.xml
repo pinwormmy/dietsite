@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dietsite.mapper.MemberMapper">
+
+    <select id="isUniqueId" resultType="String">
+        select count(*) from member
+        where id=#{id}
+    </select>
+
+    <select id="isUniqueNickName" resultType="String">
+        select count(*) from member
+            where nickname=#{nickName}
+    </select>
+
+    <select id="isUniqueEmail" resultType="String">
+        select count(*) from member
+        where email=#{email}
+    </select>
+
+    <insert id="submitSignUp">
+        insert into member(id, pw, nickname, realname, email, phone, grade, reg_date)
+        values(#{id}, #{pw}, #{nickName}, #{realName}, #{email}, #{phone}, 1, now())
+    </insert>
+
+    <select id="checkLoginData" resultType="com.dietsite.member.MemberDTO">
+        select * from member
+        where id=#{id} and pw=#{pw}
+    </select>
+
+    <update id="submitModifyMyInfo">
+        update member
+        set pw=#{pw}, nickname=#{nickName}, email=#{email}
+        where id=#{id}
+    </update>
+
+    <select id="getMemberInfo" resultType="com.dietsite.member.MemberDTO">
+        select *
+        from member
+        where id=#{id}
+    </select>
+
+    <select id="getMemberList" resultType="com.dietsite.member.MemberDTO">
+        select *
+        from member
+        where <include refid="searchKeyword" />
+        order by id
+        limit #{postBeginPoint}, #{displayPostLimit}
+    </select>
+
+    <select id="getTotalMemberCount" resultType="int">
+        select count(*)
+        from member
+        where <include refid="searchKeyword" />
+    </select>
+
+    <sql id="searchKeyword">
+        id like concat('%', #{keyword}, '%') or
+        nickname like concat('%', #{keyword}, '%') or
+        realname like concat('%', #{keyword}, '%')
+    </sql>
+
+    <update id="submitModifyMemberByAdmin">
+        update member
+        set nickname=#{nickName}, realname=#{realName}, email=#{email}, phone=#{phone}, grade=#{grade}
+        where id=#{id}
+    </update>
+
+    <select id="findByEmail" resultType="com.dietsite.member.MemberDTO">
+        select * from member
+        where email=#{email}
+    </select>
+
+    <update id="updatePassword">
+        update member
+        set pw=#{pw}
+        where id=#{id}
+    </update>
+
+    <select id="getIdByNameAndEmail" resultType="String">
+        select id from member
+        where realname=#{userName} and email=#{email}
+    </select>
+
+    <select id="findByUserIdAndEmail" resultType="com.dietsite.member.MemberDTO">
+        select * from member
+        where id=#{userId} and email=#{email}
+    </select>
+
+    <delete id="deleteMember">
+        delete from member
+        where id=#{id}
+    </delete>
+
+</mapper>

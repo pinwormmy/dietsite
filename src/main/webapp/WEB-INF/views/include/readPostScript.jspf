@@ -1,0 +1,21 @@
+<script>
+
+    const postNum = ${post.postNum};
+    const recommendCount = ${post.recommendCount};
+    const memberId = "${member.id != null ? member.id : ''}";
+    const memberGrade = ${member.grade != null ? member.grade : 0};
+    const boardPath = "/${boardTitle}";
+
+    let isLoggedIn =
+    <c:choose>
+        <c:when test="${not empty member}">true</c:when>
+        <c:otherwise>false</c:otherwise>
+    </c:choose>;
+
+    let isAdmin =
+    <c:choose>
+        <c:when test="${member.grade == 3}">true</c:when>
+        <c:otherwise>false</c:otherwise>
+    </c:choose>;
+
+</script>

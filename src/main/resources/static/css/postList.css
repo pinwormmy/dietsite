@@ -1,0 +1,62 @@
+.boardList {
+    width: 100%;
+    border-collapse: collapse;
+    overflow: hidden;
+}
+
+.boardList th {
+    text-align: center;
+    border-bottom: 1px solid white;
+}
+.boardList tr:last-child {
+    border: none;
+}
+.boardList th,
+.boardList td {
+    padding: 2px;
+}
+.boardList tr th {
+    padding: 5px;
+}
+.post-heading {
+    border-bottom: 2px solid white;
+}
+.writer, .date {
+    text-align: center;
+}
+.views, .post-num, .recommend {
+    text-align: right;
+}
+/* 모바일 환경에서 특정 열만 숨김 */
+@media screen and (max-width: 600px) {
+    body .col-lg-3, body .col-lg-9, body.col-xs-12 {
+        padding: 1px;
+    }
+
+    /* 숨길 열 지정 */
+    .boardList .hide-on-mobile {
+        display: none;
+    }
+    .boardList th,
+    .boardList td {
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .boardList .post-num {
+        min-width: 55px;
+    }
+}
+/* 비 모바일 환경에서는 모든 열을 표시 */
+@media screen and (min-width: 601px) {
+    .boardList th, .boardList td {
+        display: table-cell;
+    }
+}
+
+/* 모바일 환경에서 Bootstrap Column Padding 조정 */
+@media screen and (max-width: 600px) {
+
+}
+
+
+
