@@ -4,8 +4,8 @@ body {
     width: 100%;
     height: 100%;
     line-height: 1.5;
-    font-family: 'Sunflower', sans-serif;
-    font-size: 20px;
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 16px;
     font-weight: 400;
     background-image: url('/image/body_back.jpg');
     background-size: cover;
@@ -15,14 +15,14 @@ body {
 }
 @media (max-width: 768px) {
     body {
-        font-size: 20px;
+        font-size: 16px;
     }
 }
 .section-wrapper {
     min-height: 850px;
 }
 p, h1, h2, h3, h4, h5, h6 {
-    font-family: 'Sunflower', sans-serif;
+    font-family: "Noto Sans KR", sans-serif;
     color: #000000; /* 추가적으로 폰트 색상도 검정으로 설정 */
 }
 ol, ul {
@@ -49,6 +49,8 @@ li {
 td {
     padding-top : 10px;
     padding-bottom : 10px;
+    border-bottom: 1px solid rgba(0,0,0,.1);
+    background: #fff;
 }
 select {
     background-color: transparent;
@@ -89,7 +91,7 @@ input[type="checkbox"] {
 }
 button {
     height: 50px;
-    border: 2px solid #ffffff;
+    border: 2px solid black;
     margin: 2px;
     color: black;
     background-color: transparent;
