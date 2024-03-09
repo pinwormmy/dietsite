@@ -39,7 +39,10 @@
     margin-right: 20px;
 }
 .title-container .full-title {
-    display: inline;
+    font-weight: 700; /* 타이틀의 무게를 더욱 두껍게 */
+    letter-spacing: 1px; /* 글자 간격 조정 */
+    color: #007bff; /* 타이틀 색상 변경 */
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2); /* 타이틀에 그림자 효과 추가 */
     font-size: 42px;
 }
 .title-container .short-title {
@@ -51,72 +54,63 @@
     background-repeat: no-repeat;
     background-position: center;
     height: 80px;
-
-/* 모바일 환경을 위한 스타일 */
+}
 @media (max-width: 768px) {
     .this-header {
-        width: 100%; /* 화면 너비에 맞게 조정 */
-        padding: 0; /* 적절한 패딩 추가 */
         flex-direction: column;
         align-items: flex-start;
-    }
-    .title-container {
-        font-size: 32px;
-        position: static;
-        transform: none;
-        text-align: left;
     }
     .title-container .full-title {
         display: none;
     }
     .title-container .short-title {
         display: block;
+        font-size: 24px; /* 모바일에서 타이틀 글자 크기 조정 */
+        text-align: left;
+        margin-left: 10px; /* 좌측 여백 추가 */
     }
     .super-top-menu ul {
-        justify-content: flex-end;
-        width: 100%; /* 전체 너비 사용 */
-        padding-left: 0; /* 왼쪽 패딩 제거 */
+        justify-content: space-between;
+        width: 100%;
     }
     .super-top-menu ul li {
-        margin-right: 10px;
+        margin: 10px 5px; /* 모바일에서 메뉴 항목 간격 조정 */
     }
 }
-
+.super-top-menu ul li a {
+    font-weight: 500; /* 메뉴 항목의 글자 무게 */
+    color: #343a40; /* 메뉴 항목 색상 */
+    transition: color 0.2s ease-in-out; /* 부드러운 색상 전환 */
+}
+.super-top-menu ul li a:hover {
+    color: #007bff; /* 호버 시 메뉴 항목 색상 변경 */
+    text-decoration: underline; /* 호버 시 밑줄 표시 */
+}
 </style>
-
- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9442860103048802"
-      crossorigin="anonymous"></script>
-
 </head>
-
 <body>
-
 <div class="navbar-wrapper">
     <div class="this-header">
         <div class="title-container">
             <span class="full-title">DietSite</span>
-            <span class="short-title">DietSite</span>
+            <span class="short-title">DS</span>
         </div>
         <div class="super-top-menu">
             <ul>
                 <c:if test="${member == null}">
-                    <li><a href="/login">[로그인]</a></li>
-                    <li><a href="/signAgreement">[회원가입]</a></li>
+                    <li><a href="/login">로그인</a></li>
+                    <li><a href="/signAgreement">회원가입</a></li>
                 </c:if>
                 <c:if test="${member != null}">
-                    <li>${member.nickName}님 로그인 중 : </li>
-                    <li><a href="/logout">[로그아웃]</a></li>
-                    <li><a href="javascript:goMyPage()">[회원정보]</a></li>
+                    <li>${member.nickName}님 로그인 중</li>
+                    <li><a href="/logout">로그아웃</a></li>
+                    <li><a href="javascript:goMyPage()">회원정보</a></li>
                 </c:if>
             </ul>
         </div>
     </div>
 </div>
-
-</body>
-
 <script>
-
     function goMyPage() {
         if(${member == null}) {
             alert("로그인이 필요합니다.");
@@ -124,7 +118,6 @@
         }
         location.href="/myPage?id=${member.id}";
     }
-
 </script>
-
+</body>
 </html>

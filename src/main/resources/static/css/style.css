@@ -30,13 +30,8 @@ ol, ul {
   padding: 0;
   list-style: none;
 }
-legend {
-    font-size: 16px;
-    color: black;
-    border-bottom: 0;
-    width: auto;
-    text-align: center;
-    margin: 0;
+.legend, th, td {
+    background-color: rgba(255, 255, 255, 0.8); /* 텍스트 배경에 반투명 효과 */
 }
 th {
     font-weight: 100;
@@ -60,20 +55,26 @@ select {
 option {
     background-color: #010a47;
 }
-fieldset {
-    border: 1px solid black;
-    padding: 10px;
+.fieldset {
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* 상자 그림자 효과 */
 }
-a {
-    color: black;
+.table {
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1); /* 테이블 상자 그림자 */
+}
+a, button {
+    transition: color 0.3s ease, background-color 0.3s ease; /* 부드러운 색상 변화 */
+}
+
+a:hover, button:hover {
+    color: #fff; /* 호버 시 폰트 색상 */
+    background-color: #007bff; /* 호버 시 배경 색상 */
 }
 li {
     margin: 10px;
     display: block;
 }
-a, a:focus, a:hover {
-  text-decoration: none;
-  outline: none;
+a, button {
+    transition: color 0.3s ease, background-color 0.3s ease; /* 부드러운 색상 변화 */
 }
 input {
     height: 50px;
@@ -90,12 +91,8 @@ input[type="checkbox"] {
     transform: scale(1.5);
 }
 button {
-    height: 50px;
-    border: 2px solid black;
-    margin: 2px;
-    color: black;
-    background-color: transparent;
-    cursor: pointer;
+    border-radius: 20px; /* 버튼 모서리 둥글게 */
+    padding: 10px 20px; /* 버튼 패딩 조정 */
 }
 button.cancel-btn {
     background: none;
