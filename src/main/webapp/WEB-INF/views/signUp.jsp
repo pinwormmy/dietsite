@@ -21,38 +21,38 @@
                         <form action="/submitSignUp" name="submitSignUp" id="submitSignUp" method="post">
                             '*'표시된 항목은 꼭 입력해주세요!
                             <div class="inputId">
-                                회원ID*>
+                                회원ID*
                                 <input type="text" name="id" id="inputId"><br>
                                 <span id="idCheckText" class="infoText">ID를 입력해주세요.</span>
                             </div>
                             <div>
-                                패스워드*>
+                                패스워드*
                                 <input type="password" name="pw" id="pw" placeholder="4~16 자리">
                             </div>
                             <div>
-                                패스워드 재입력*>
+                                패스워드 재입력*
                                 <input type="password" name="pw2" id="pw2">
                             </div>
                             <div>
-                                별명*>
+                                별명*
                                 <input type="text" name="nickName" id="nickName"><br>
                                 <span id="nickNameCheckText" class="infoText">별명을 입력해주세요.</span>
                             </div>
                             <br><br>
                             <div>
-                                회원명>
+                                회원명
                                 <input type="text" name="realName" id="realName">
                             </div>
                             <div>
-                                연락처>
+                                연락처
                                 <input type="text" name="phone" id="phone"><br>
                             </div>
                             <div>
-                                이메일>
+                                이메일
                                 <input type="email" id="email" name="email"><br>
                             </div>
                             <br>
-                            <button type="button" class="basicButton" onclick="checkSignupForm();" accesskey="s">가입하기(S)</button><br>
+                            <button type="button" class="basicButton" onclick="checkSignupForm();" accesskey="s">가입하기</button><br>
                         </form>
                     </div>
                 </div>

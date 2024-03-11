@@ -27,11 +27,11 @@
 <div class="col-sm-3">
     <div id="sidebar" class="sidebar">
         <fieldset id="basicMenu" class="basic-menu">
-            <legend class="menu-header">[지휘관회의실]</legend>
+            <legend class="menu-header">메뉴</legend>
             <div id="basicMenuContent">
                 <ul>
-                    <li><a href="/guidelines" accesskey="g">이용안내(G)</a></li>
-                    <li><a href="/" accesskey="h">초기화면(H)</a></li>
+                    <li><a href="/guidelines">이용안내</a></li>
+                    <li><a href="/">홈으로</a></li>
                     <li><a href="/supportBoard/list">문의게시판</a></li>
                     <li><a href="/videoLinkBoard/list">영상자료실</a></li>
                     <li><a href="/promotionBoard/list">홍보게시판</a></li>

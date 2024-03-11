@@ -77,22 +77,18 @@ a, button {
     transition: color 0.3s ease, background-color 0.3s ease; /* 부드러운 색상 변화 */
 }
 input {
-    height: 50px;
-    border: none;
+    border-color: yellowgreen;
+    border-radius: 15px;
     margin: 2px;
-    outline: none;
     padding-left: 10px;
     background-color: transparent;
-}
-input:focus {
-    outline: none;
 }
 input[type="checkbox"] {
     transform: scale(1.5);
 }
 button {
     border-radius: 20px; /* 버튼 모서리 둥글게 */
-    padding: 10px 20px; /* 버튼 패딩 조정 */
+    background-color: white;
 }
 button.cancel-btn {
     background: none;

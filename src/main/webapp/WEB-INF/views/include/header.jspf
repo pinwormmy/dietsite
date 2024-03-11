@@ -23,6 +23,20 @@
     flex-grow: 3;
     text-align: center;
 }
+.title-container a {
+    text-decoration: none;
+    color: inherit;
+}
+.title-container a:hover {
+    background-color: transparent; /* 호버 시 배경 색상 변경 없음 */
+    color: inherit; /* 호버 시 텍스트 색상 유지 */
+    text-decoration: none; /* 밑줄 없앰 */
+}
+.title-container a, .title-container a:hover {
+    text-decoration: none;
+    color: inherit;
+    transition: none; /* 이 부분을 추가 */
+}
 .super-top-menu {
     display: flex;
     flex-grow: 1;
@@ -41,7 +55,7 @@
 .title-container .full-title {
     font-weight: 700; /* 타이틀의 무게를 더욱 두껍게 */
     letter-spacing: 1px; /* 글자 간격 조정 */
-    color: #007bff; /* 타이틀 색상 변경 */
+    color: #276749; /* 타이틀 색상 변경 */
     text-shadow: 2px 2px 4px rgba(0,0,0,0.2); /* 타이틀에 그림자 효과 추가 */
     font-size: 42px;
 }
@@ -92,8 +106,10 @@
 <div class="navbar-wrapper">
     <div class="this-header">
         <div class="title-container">
-            <span class="full-title">DietSite</span>
-            <span class="short-title">DS</span>
+            <a href="/" style="text-decoration: none; color: inherit;">
+                <span class="full-title">DietSite</span>
+                <span class="short-title">DietSite</span>
+            </a>
         </div>
         <div class="super-top-menu">
             <ul>

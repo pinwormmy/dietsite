@@ -1,5 +1,6 @@
 package com.dietsite;
 
+import com.dietsite.board.BoardService;
 import com.dietsite.util.PageDTO;
 import com.dietsite.visitorCount.VisitorCountService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,12 @@ public class HomeController {
 
     @Autowired
     VisitorCountService visitorCountService;
+    @Autowired
+    BoardService boardService;
+
+    String boardTitle1 = "tVsTBoard";
+    String boardTitle2 = "zVsTBoard";
+    String boardTitle3 = "pVsZBoard";
 
     @GetMapping("/")
     public String home(PageDTO page, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -39,6 +46,17 @@ public class HomeController {
             createVisitorCookie(response);
             visitorCountService.incrementVisitorCount();
         }
+
+        // 각 게시판별 최신글조회
+        model.addAttribute("boardTitle1", boardTitle1);
+        model.addAttribute("page1", boardService.pageSetting(boardTitle1, page));
+        model.addAttribute("postList1", boardService.showPostList(boardTitle1, page));
+        model.addAttribute("boardTitle2", boardTitle2);
+        model.addAttribute("page2", boardService.pageSetting(boardTitle2, page));
+        model.addAttribute("postList2", boardService.showPostList(boardTitle2, page));
+        model.addAttribute("boardTitle3", boardTitle3);
+        model.addAttribute("page3", boardService.pageSetting(boardTitle3, page));
+        model.addAttribute("postList3", boardService.showPostList(boardTitle3, page));
 
         model.addAttribute("todayCount", visitorCountService.getTodayCount());
         model.addAttribute("totalCount", visitorCountService.getTotalCount());

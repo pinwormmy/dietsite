@@ -19,13 +19,13 @@
                         </div>
                         <form action="/submitLogin" method="post">
                             <div class="inputId">
-                                회원ID>
+                                회원ID
                                 <input type="text" name="id" id="id">
                             </div>
                             <div>
-                                패스워드> <input type="password" name="pw" id="pw">
+                                패스워드<input type="password" name="pw" id="pw">
                             </div>
-                            <button id="loginButton" accesskey="l">로그인(L)</button><br>
+                            <button id="loginButton" accesskey="l">로그인</button><br>
                             <hr>
                         </form>
                         <div class="subMenu">
