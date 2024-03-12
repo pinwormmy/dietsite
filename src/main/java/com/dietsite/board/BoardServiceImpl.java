@@ -187,6 +187,7 @@ public class BoardServiceImpl implements BoardService {
         return utilLoadingForCommentPage(boardTitle, page);
     }
 
+    // 게시판 이름 변경에 사용
     @Override
     public List<BoardListDTO> getBoardList() {
         return boardMapper.getBoardList();
