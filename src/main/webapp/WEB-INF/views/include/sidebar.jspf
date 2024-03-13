@@ -32,12 +32,12 @@
                 <ul>
                     <li><a href="/guidelines">이용안내</a></li>
                     <li><a href="/">홈으로</a></li>
-                    <li><a href="/supportBoard/list">문의게시판</a></li>
-                    <li><a href="/videoLinkBoard/list">영상자료실</a></li>
-                    <li><a href="/promotionBoard/list">홍보게시판</a></li>
-                    <li><a href="/freeBoard/list">자유게시판</a></li>
-                    <li><a href="/beginnerBoard/list">초보자마당</a></li>
-                    <li><a href="/funBoard/list">꿀잼놀이터</a></li>
+                    <li><a href="/board4/list">게시판4</a></li>
+                    <li><a href="/board5/list">게시판5</a></li>
+                    <li><a href="/board6/list">게시판6</a></li>
+                    <li><a href="/board7/list">게시판7</a></li>
+                    <li><a href="/board8/list">게시판8</a></li>
+                    <li><a href="/board9/list">게시판9</a></li>
                 </ul>
             </div>
         </fieldset>
