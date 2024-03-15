@@ -217,4 +217,9 @@ public class BoardServiceImpl implements BoardService {
         String koreanTitle = boardMapper.findKoreanTitleByBoardTitle(boardTitle);
         return koreanTitle != null ? koreanTitle : "알 수 없는 게시판(오류가 있는지 확인하시오)";
     }
+
+    @Override
+    public List<BoardListDTO> getBoardList() {
+        return boardMapper.getBoardList();
+    }
 }

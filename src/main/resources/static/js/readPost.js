@@ -152,7 +152,7 @@ async function commentHtmlWithString(commentListHtml, CommentDTOList) {
 async function displayDeleteButton(commentListHtml, commentDTO) {
     if( (memberId == commentDTO.id) || (memberGrade == 3) ) {
         commentListHtml += "<button class='pull btn btn-right cancel-btn' onclick='deleteComment(";
-        commentListHtml += commentDTO.commentNum + ");'>댓글삭제(-) </button>";
+        commentListHtml += commentDTO.commentNum + ");'>댓글삭제</button>";
     }
     return commentListHtml;
 }
@@ -175,7 +175,7 @@ async function deleteComment(commentNum) {
 // 댓글 수 업데이트
 async function updateCommentCount(postNum) {
     try {
-        const response = await fetch(boardPath + "/updateCommentCount?postNum=" + postNum, {method:"PUT"});
+        const response = await fetch(boardPath + "/updateCommentCount?postNum=" + postNum, {method:"PATCH"});
         if (response.ok) {
             console.log("댓글 업데이트");
         } else {
@@ -205,6 +205,7 @@ async function addRecommend(postNum) {
 
     // 현재 사용자가 이미 추천했는지 확인
     const checkData = await fetchData(boardPath + "/checkRecommendation?postNum=" + postNum, "GET");
+
     if (checkData && checkData.checkRecommend !== undefined) {
         isRecommended = checkData.checkRecommend;
     }

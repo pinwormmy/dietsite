@@ -118,11 +118,13 @@ public class BoardController {
         return boardService.commentPageSetting(boardTitle, page);
     }
 
-    @GetMapping(value = "/{boardTitle}/showCommentList")
+    // 후에 getmapping 구조로 리팩토링 필요. PageDTO 세분화하는 등 전체적인 수정 필요함.
+    @RequestMapping(value = "/{boardTitle}/showCommentList", method = RequestMethod.POST)
     @ResponseBody
     public List<CommentDTO> showCommentList(@PathVariable String boardTitle, @RequestBody PageDTO page) throws Exception {
         return boardService.showCommentList(boardTitle, page);
     }
+
 
     @DeleteMapping(value = "/{boardTitle}/deleteComment")
     @ResponseBody
@@ -130,10 +132,11 @@ public class BoardController {
         boardService.deleteComment(boardTitle, commentNum);
     }
 
-    @PutMapping(value = "/{boardTitle}/updateCommentCount")
+    @PatchMapping(value = "/{boardTitle}/updateCommentCount")
     @ResponseBody
-    public void updateCommentCount(@PathVariable String boardTitle, int postNum) throws Exception {
+    public ResponseEntity<?> updateCommentCount(@PathVariable String boardTitle, int postNum) throws Exception {
         boardService.updateCommentCount(boardTitle, postNum);
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping(value = "/{boardTitle}/addRecommendation")
@@ -157,7 +160,7 @@ public class BoardController {
         }
     }
 
-    @PatchMapping(value = "/{boardTitle}/cancelRecommendation")
+    @DeleteMapping(value = "/{boardTitle}/cancelRecommendation")
     @ResponseBody
     public ResponseEntity<RecommendDTO> cancelRecommendation(@PathVariable String boardTitle, HttpSession session, @RequestBody RecommendDTO recommendDTO) {
         try {
@@ -240,5 +243,11 @@ public class BoardController {
         boardService.submitPost(targetBoardTitle, newPost);
 
         return "redirect:/" + boardTitle + "/list";
+    }
+
+    @GetMapping("/boardList")
+    @ResponseBody
+    public List<BoardListDTO> getBoardList() {
+        return boardService.getBoardList();
     }
 }

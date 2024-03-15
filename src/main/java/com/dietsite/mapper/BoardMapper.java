@@ -1,6 +1,7 @@
 package com.dietsite.mapper;
 
 import com.dietsite.board.BoardDTO;
+import com.dietsite.board.BoardListDTO;
 import com.dietsite.board.CommentDTO;
 import com.dietsite.board.RecommendDTO;
 import com.dietsite.util.PageDTO;
@@ -55,5 +56,7 @@ public interface BoardMapper {
     int getActualRecommendCount(@Param("boardTitle") String boardTitle, @Param("postNum") int postNum);
 
     String findKoreanTitleByBoardTitle(@Param("boardTitle") String boardTitle);
+
+    List<BoardListDTO> getBoardList();
 }
 
