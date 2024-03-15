@@ -24,9 +24,9 @@ public class HomeController {
     @Autowired
     BoardService boardService;
 
-    String boardTitle1 = "tVsTBoard";
-    String boardTitle2 = "zVsTBoard";
-    String boardTitle3 = "pVsZBoard";
+    String boardTitle1 = "board1";
+    String boardTitle2 = "board2";
+    String boardTitle3 = "board3";
 
     @GetMapping("/")
     public String home(PageDTO page, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {

@@ -18,7 +18,7 @@
         <div class="container">
             <%@include file="./include/sidebar.jspf" %>
             <div class="col-sm-3">
-                <fieldset class="terran-field">
+                <fieldset class="field1">
                     <legend><a href="/${boardTitle1}/list">${boardTitle1}</a></legend>
                     <table class="boardList" style="width: 100%;">
                         <c:forEach var="post" items="${postList1}">
@@ -28,7 +28,7 @@
                 </fieldset>
             </div>
             <div class="col-sm-3">
-                <fieldset class="zerg-field">
+                <fieldset class="field2">
                     <legend><a href="/${boardTitle2}/list">${boardTitle2}</a></legend>
                     <table class="boardList" style="width: 100%;">
                         <c:forEach var="post" items="${postList2}">
@@ -38,7 +38,7 @@
                 </fieldset>
             </div>
             <div class="col-sm-3">
-                <fieldset class="protoss-field">
+                <fieldset class="field3">
                     <legend><a href="/${boardTitle3}/list">${boardTitle3}</a></legend>
                     <table class="boardList" style="width: 100%;">
                         <c:forEach var="post" items="${postList3}">

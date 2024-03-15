@@ -154,9 +154,10 @@
         select count(*) from ${boardTitle.toLowerCase()}_recommend where post_num=#{postNum}
     </select>
 
-    <!-- 게시판 목록을 가져오는 쿼리 -->
-    <select id="getBoardList" resultType="com.dietsite.board.BoardListDTO">
-        select board_title from board_list
+    <select id="findKoreanTitleByBoardTitle" resultType="string">
+        SELECT korean_title
+            FROM board_mapping
+            WHERE board_title = #{boardTitle}
     </select>
 
 </mapper>

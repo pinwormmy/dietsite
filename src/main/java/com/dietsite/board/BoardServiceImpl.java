@@ -187,12 +187,6 @@ public class BoardServiceImpl implements BoardService {
         return utilLoadingForCommentPage(boardTitle, page);
     }
 
-    // 게시판 이름 변경에 사용
-    @Override
-    public List<BoardListDTO> getBoardList() {
-        return boardMapper.getBoardList();
-    }
-
     // 나머지 유틸리티 메서드들
     protected void checkPageAndKeyword(PageDTO page) {
         if(page.getRecentPage() < 1) { page.setRecentPage(1); }
@@ -217,5 +211,10 @@ public class BoardServiceImpl implements BoardService {
         util.setDISPLAY_POST_LIMIT(15); // 한 페이지 내 게시물 갯수 변경
         util.setPAGESET_LIMIT(10);
         return util;
+    }
+
+    public String getKoreanTitle(String boardTitle) {
+        String koreanTitle = boardMapper.findKoreanTitleByBoardTitle(boardTitle);
+        return koreanTitle != null ? koreanTitle : "알 수 없는 게시판(오류가 있는지 확인하시오)";
     }
 }

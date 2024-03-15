@@ -25,7 +25,7 @@ public class BoardController {
 
     @GetMapping(value = "/{boardTitle}/list")
     public String list(@PathVariable String boardTitle, PageDTO page, Model model, HttpSession session) throws Exception {
-        String koreanTitle = getKoreanTitle(boardTitle);
+        String koreanTitle = boardService.getKoreanTitle(boardTitle);
         model.addAttribute("koreanTitle", koreanTitle);
         model.addAttribute("boardTitle", boardTitle);
         model.addAttribute("selfNoticeList", boardService.showSelfNoticeList(boardTitle));
@@ -39,11 +39,7 @@ public class BoardController {
             canWrite = true;
             // 관리자만 글쓰기 가능한 게시판 목록
             String[] adminOnlyBoards = {
-                    "terranGuideBoard", "zergGuideBoard", "protossGuideBoard",
-                    "tVsTBoard", "tVsZBoard", "tVsPBoard",
-                    "zVsTBoard", "zVsZBoard", "zVsPBoard",
-                    "pVsTBoard", "pVsZBoard", "pVsPBoard",
-                    "teamPlayGuideBoard"
+                    "board1", "board2", "board3"
             };
             for (String adminOnlyBoard : adminOnlyBoards) {
                 if (boardTitle.equalsIgnoreCase(adminOnlyBoard)) { // 대소문자 구분 안 함
@@ -58,64 +54,7 @@ public class BoardController {
         return "board/postList";
     }
 
-    private String getKoreanTitle(String boardTitle) {
-        if (boardTitle == null) {
-            return "알 수 없는 게시판(오류가 있는지 확인하시오)";
-        }
-
-        if (boardTitle.equalsIgnoreCase("freeBoard")) {
-            return "자유게시판";
-        } else if (boardTitle.equalsIgnoreCase("beginnerBoard")) {
-            return "초보자마당";
-        } else if (boardTitle.equalsIgnoreCase("terranBoard")) {
-            return "테란 게시판";
-        } else if (boardTitle.equalsIgnoreCase("terranGuideBoard")) {
-            return "테란 공략";
-        } else if (boardTitle.equalsIgnoreCase("tVsTBoard")) {
-            return "테테전 게시판";
-        } else if (boardTitle.equalsIgnoreCase("tVsZBoard")) {
-            return "테저전 게시판";
-        } else if (boardTitle.equalsIgnoreCase("tVsPBoard")) {
-            return "테프전 게시판";
-        } else if (boardTitle.equalsIgnoreCase("zergBoard")) {
-            return "저그 게시판";
-        } else if (boardTitle.equalsIgnoreCase("zergGuideBoard")) {
-            return "저그 공략";
-        } else if (boardTitle.equalsIgnoreCase("zVsTBoard")) {
-            return "저테전 게시판";
-        } else if (boardTitle.equalsIgnoreCase("zVsZBoard")) {
-            return "저저전 게시판";
-        } else if (boardTitle.equalsIgnoreCase("zVsPBoard")) {
-            return "저프전 게시판";
-        }else if (boardTitle.equalsIgnoreCase("protossBoard")) {
-            return "프로토스 게시판";
-        }else if (boardTitle.equalsIgnoreCase("protossGuideBoard")) {
-            return "프로토스 공략";
-        } else if (boardTitle.equalsIgnoreCase("pVsTBoard")) {
-            return "프테전 게시판";
-        } else if (boardTitle.equalsIgnoreCase("pVsZBoard")) {
-            return "프저전 게시판";
-        } else if (boardTitle.equalsIgnoreCase("pVsPBoard")) {
-            return "프프전 게시판";
-        } else if (boardTitle.equalsIgnoreCase("videoLinkBoard")) {
-            return "영상자료실";
-        } else if (boardTitle.equalsIgnoreCase("promotionBoard")) {
-            return "홍보게시판";
-        } else if (boardTitle.equalsIgnoreCase("teamPlayBoard")) {
-            return "팀플게시판";
-        } else if (boardTitle.equalsIgnoreCase("teamPlayGuideBoard")) {
-            return "팀플 공략";
-        } else if (boardTitle.equalsIgnoreCase("supportBoard")) {
-            return "문의게시판";
-        } else if (boardTitle.equalsIgnoreCase("funBoard")) {
-            return "꿀잼놀이터";
-        // ... 기타 매핑
-        } else {
-            return "알 수 없는 게시판(오류가 있는지 확인하시오)";
-        }
-    }
-
-    @RequestMapping("/{boardTitle}/readPost")
+    @GetMapping("/{boardTitle}/readPost")
     public String readPost(@PathVariable String boardTitle, Model model, HttpServletRequest request) throws Exception {
         int postNum = Integer.parseInt(request.getParameter("postNum"));
         checkIpAndUpdateViews(boardTitle, request, postNum);
@@ -132,38 +71,38 @@ public class BoardController {
         }
     }
 
-    @RequestMapping("/{boardTitle}/writePost")
+    @GetMapping("/{boardTitle}/writePost")
     public String writePost(@PathVariable String boardTitle, Model model) {
         model.addAttribute("boardTitle", boardTitle);
         return "board/writePost";
     }
 
-    @RequestMapping("/{boardTitle}/submitPost")
+    @PostMapping("/{boardTitle}/submitPost")
     public String submitPost(@PathVariable String boardTitle, BoardDTO post) throws Exception {
         boardService.submitPost(boardTitle, post);
         return "redirect:/" + boardTitle + "/list";
     }
 
-    @RequestMapping("/{boardTitle}/deletePost")
+    @PostMapping("/{boardTitle}/deletePost")
     public String deletePost(@PathVariable String boardTitle, int postNum) throws Exception {
         boardService.deletePost(boardTitle, postNum);
         return "redirect:/" + boardTitle + "/list";
     }
 
-    @RequestMapping(value = "/{boardTitle}/modifyPost")
+    @GetMapping("/{boardTitle}/modifyPost")
     public String modifyPost(@PathVariable String boardTitle, Model model, int postNum) throws Exception {
         model.addAttribute("boardTitle", boardTitle);
         model.addAttribute("post", boardService.readPost(boardTitle, postNum));
         return "board/modifyPost";
     }
 
-    @RequestMapping(value = "/{boardTitle}/submitModifyPost")
+    @PostMapping("/{boardTitle}/submitModifyPost")
     public String submitModifyPost(@PathVariable String boardTitle, BoardDTO post) throws Exception {
         boardService.submitModifyPost(boardTitle, post);
         return "redirect:/" + boardTitle + "/readPost?postNum=" + post.getPostNum();
     }
 
-    @RequestMapping(value = "/{boardTitle}/addComment")
+    @PostMapping("/{boardTitle}/addComment")
     @ResponseBody
     public ResponseEntity<Map<String, String>> addComment(@PathVariable String boardTitle, @RequestBody CommentDTO comment) throws Exception {
         log.debug("댓글 인수 확인(댓글내용) : {}", comment.getContent());
@@ -173,31 +112,31 @@ public class BoardController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{boardTitle}/commentPageSetting")
+    @PostMapping("/{boardTitle}/commentPageSetting")
     @ResponseBody
     public PageDTO commentPageSetting(@PathVariable String boardTitle, @RequestBody PageDTO page) throws Exception {
         return boardService.commentPageSetting(boardTitle, page);
     }
 
-    @RequestMapping(value = "/{boardTitle}/showCommentList")
+    @GetMapping(value = "/{boardTitle}/showCommentList")
     @ResponseBody
     public List<CommentDTO> showCommentList(@PathVariable String boardTitle, @RequestBody PageDTO page) throws Exception {
         return boardService.showCommentList(boardTitle, page);
     }
 
-    @RequestMapping(value = "/{boardTitle}/deleteComment")
+    @DeleteMapping(value = "/{boardTitle}/deleteComment")
     @ResponseBody
     public void deleteComment(@PathVariable String boardTitle, int commentNum) throws Exception {
         boardService.deleteComment(boardTitle, commentNum);
     }
 
-    @RequestMapping(value = "/{boardTitle}/updateCommentCount")
+    @PutMapping(value = "/{boardTitle}/updateCommentCount")
     @ResponseBody
     public void updateCommentCount(@PathVariable String boardTitle, int postNum) throws Exception {
         boardService.updateCommentCount(boardTitle, postNum);
     }
 
-    @RequestMapping(value = "/{boardTitle}/addRecommendation")
+    @PostMapping(value = "/{boardTitle}/addRecommendation")
     @ResponseBody
     public ResponseEntity<RecommendDTO> addRecommendation(@PathVariable String boardTitle, HttpSession session, @RequestBody RecommendDTO recommendDTO) {
         try {
@@ -218,7 +157,7 @@ public class BoardController {
         }
     }
 
-    @RequestMapping(value = "/{boardTitle}/cancelRecommendation")
+    @PatchMapping(value = "/{boardTitle}/cancelRecommendation")
     @ResponseBody
     public ResponseEntity<RecommendDTO> cancelRecommendation(@PathVariable String boardTitle, HttpSession session, @RequestBody RecommendDTO recommendDTO) {
         try {
@@ -239,7 +178,7 @@ public class BoardController {
         }
     }
 
-    @RequestMapping(value = "/{boardTitle}/checkRecommendation", method = RequestMethod.GET)
+    @GetMapping(value = "/{boardTitle}/checkRecommendation")
     @ResponseBody
     public ResponseEntity<RecommendDTO> checkRecommendation(@PathVariable String boardTitle, RecommendDTO recommendDTO, HttpSession session) {
         try {
@@ -259,7 +198,7 @@ public class BoardController {
         }
     }
 
-    @RequestMapping(value = "/{boardTitle}/getRecommendCount", method = RequestMethod.GET)
+    @GetMapping(value = "/{boardTitle}/getRecommendCount")
     @ResponseBody
     public ResponseEntity<Integer> getRecommendCount(@PathVariable String boardTitle, @RequestParam("postNum") int postNum) {
         try {
@@ -273,7 +212,7 @@ public class BoardController {
         }
     }
 
-    @RequestMapping("/{boardTitle}/movePost")
+    @PostMapping("/{boardTitle}/movePost")
     public String movePost(@PathVariable String boardTitle, @RequestBody Map<String, Object> payload) throws Exception {
         int postNum = (int) payload.get("postNum");
         String targetBoardTitle = (String) payload.get("moveToBoard");
@@ -284,7 +223,7 @@ public class BoardController {
         String originalContent = originalPost.getContent();  // 원본 내용을 저장
 
         // 1. 원본 게시글의 내용을 수정합니다.
-        String newContent = "이 게시글은 " + getKoreanTitle(targetBoardTitle) + "으로 이동되었습니다.";
+        String newContent = "이 게시글은 " + boardService.getKoreanTitle(targetBoardTitle) + "으로 이동되었습니다.";
         originalPost.setContent(newContent);
         boardService.submitModifyPost(boardTitle, originalPost);
 
@@ -302,16 +241,4 @@ public class BoardController {
 
         return "redirect:/" + boardTitle + "/list";
     }
-
-    @GetMapping("/boardList")
-    @ResponseBody
-    public List<BoardListDTO> getBoardList() {
-        List<BoardListDTO> boardList = boardService.getBoardList();
-        for (BoardListDTO board : boardList) {
-            String koreanTitle = getKoreanTitle(board.getBoardTitle());
-            board.setKoreanTitle(koreanTitle);
-        }
-        return boardList;
-    }
-
 }
