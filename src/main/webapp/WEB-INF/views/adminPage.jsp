@@ -104,6 +104,26 @@
                         </ul>
                     </nav>
                 </div>
+                <!-- 관리자 페이지의 일부 -->
+                <div class="admin-board-name-change">
+                    <h3>게시판 이름 변경</h3>
+                    <table>
+                        <tr>
+                            <th>현재 게시판 이름</th>
+                            <th>새 게시판 이름</th>
+                            <th>작업</th>
+                        </tr>
+                        <c:forEach items="${boardList}" var="board">
+                            <tr>
+                                <td>${board.koreanTitle}</td>
+                                <td><input type="text" id="newName-${board.boardTitle}" placeholder="새 이름 입력"></td>
+                                <td>
+                                    <button onclick="updateBoardName('${board.boardTitle}')">이름 변경</button>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -111,6 +131,7 @@
 <%@ include file="/WEB-INF/views/include/footer.jspf" %>
 
 <script>
+
 function confirmDelete(id) {
     if(confirm("정말로 탈퇴시키겠습니까?")) {
         // AJAX 요청
@@ -130,6 +151,30 @@ function confirmDelete(id) {
         });
     }
 }
+
+function updateBoardName(boardTitle) {
+    const newName = document.getElementById(`newName-${boardTitle}`).value;
+    fetch(`/updateBoardName`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            boardTitle: boardTitle,
+            newName: newName
+        })
+    })
+    .then(response => {
+        if(response.ok) {
+            alert('게시판 이름이 성공적으로 변경되었습니다.');
+            location.reload(); // 페이지 새로고침으로 변경사항 반영
+        } else {
+            alert('게시판 이름 변경에 실패했습니다.');
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}
+
 </script>
 
 </body>

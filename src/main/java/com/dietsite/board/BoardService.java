@@ -52,4 +52,6 @@ public interface BoardService {
     String getKoreanTitle(String boardTitle);
 
     List<BoardListDTO> getBoardList();
+
+    void updateBoardName(String boardTitle, String newName);
 }

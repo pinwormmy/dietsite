@@ -1,10 +1,12 @@
 package com.dietsite.board;
 
+import com.dietsite.exception.ServiceException;
 import com.dietsite.mapper.BoardMapper;
 import com.dietsite.util.PageDTO;
 import com.dietsite.util.PageService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -222,4 +224,21 @@ public class BoardServiceImpl implements BoardService {
     public List<BoardListDTO> getBoardList() {
         return boardMapper.getBoardList();
     }
+
+    @Transactional
+    public void updateBoardName(String boardTitle, String newName) {
+        // 유효성 검증 로직 추가 예정
+        if(boardTitle == null || newName == null || newName.trim().isEmpty()) {
+            throw new IllegalArgumentException("게시판 이름 또는 새 이름이 유효하지 않습니다.");
+        }
+
+        // 실제 업데이트 호출
+        try {
+            boardMapper.updateBoardName(boardTitle, newName);
+        } catch (DataAccessException e) {
+            // 로그 기록, 예외 전파 등 예외 처리 로직
+            throw new ServiceException("게시판 이름 변경 중 오류가 발생했습니다.", e);
+        }
+    }
+
 }

@@ -166,4 +166,10 @@
             WHERE board_title = #{boardTitle}
     </select>
 
+    <update id="updateBoardName">
+        UPDATE board_mapping
+            SET korean_title = #{newName}
+            WHERE board_title = #{boardTitle}
+    </update>
+
 </mapper>

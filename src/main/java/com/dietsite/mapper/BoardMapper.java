@@ -58,5 +58,7 @@ public interface BoardMapper {
     String findKoreanTitleByBoardTitle(@Param("boardTitle") String boardTitle);
 
     List<BoardListDTO> getBoardList();
+
+    void updateBoardName(@Param("boardTitle") String boardTitle, @Param("newName") String newName);
 }
 

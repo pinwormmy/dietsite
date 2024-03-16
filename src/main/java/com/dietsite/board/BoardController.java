@@ -250,4 +250,12 @@ public class BoardController {
     public List<BoardListDTO> getBoardList() {
         return boardService.getBoardList();
     }
+
+    @PostMapping("/updateBoardName")
+    public ResponseEntity<?> updateBoardName(@RequestBody BoardNameUpdateRequest request) {
+        boardService.updateBoardName(request.getBoardTitle(), request.getNewName());
+        return ResponseEntity.ok().build();
+    }
+
+
 }
