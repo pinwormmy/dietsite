@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <html>
 <head>
+<title>다이어트 정보 사이트</title>
 <style>
 #toggleButton {
     display: none; /* 모바일 환경에서 토글 버튼 숨김 처리 */
@@ -19,7 +20,7 @@
     cursor: pointer;
 }
 .basic-menu li {
-    margin : 15px;
+    margin: 15px;
 }
 </style>
 </head>
@@ -32,16 +33,30 @@
                 <ul>
                     <li><a href="/guidelines">이용안내</a></li>
                     <li><a href="/">홈으로</a></li>
-                    <li><a href="/board4/list">게시판4</a></li>
-                    <li><a href="/board5/list">게시판5</a></li>
-                    <li><a href="/board6/list">게시판6</a></li>
-                    <li><a href="/board7/list">게시판7</a></li>
-                    <li><a href="/board8/list">게시판8</a></li>
-                    <li><a href="/board9/list">게시판9</a></li>
+                    <!-- 동적으로 생성되는 게시판 목록이 여기에 삽입됩니다 -->
                 </ul>
             </div>
         </fieldset>
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    fetch('/boardList')
+    .then(response => response.json())
+    .then(data => {
+        const ul = document.querySelector('#basicMenuContent ul');
+        data.forEach(board => {
+            const li = document.createElement('li');
+            const a = document.createElement('a');
+            a.href = `/` + board.boardTitle + `/list`;
+            a.textContent = board.koreanTitle;
+            li.appendChild(a);
+            ul.appendChild(li);
+        });
+    })
+    .catch(error => console.error('Error:', error));
+});
+</script>
 </body>
 </html>

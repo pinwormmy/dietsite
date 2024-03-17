@@ -153,7 +153,14 @@ function confirmDelete(id) {
 }
 
 function updateBoardName(boardTitle) {
-    const newName = document.getElementById(`newName-${boardTitle}`).value;
+    const newName = document.getElementById("newName-" + boardTitle).value;
+
+    // 입력값 검증
+    if (!newName.trim()) { // newName이 비어있거나 공백만 있는 경우
+        alert("새 게시판 이름을 입력해주세요.");
+        return; // 함수 실행을 여기서 중단
+    }
+
     fetch(`/updateBoardName`, {
         method: 'POST',
         headers: {

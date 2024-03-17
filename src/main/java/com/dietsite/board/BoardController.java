@@ -252,10 +252,18 @@ public class BoardController {
     }
 
     @PostMapping("/updateBoardName")
-    public ResponseEntity<?> updateBoardName(@RequestBody BoardNameUpdateRequest request) {
-        boardService.updateBoardName(request.getBoardTitle(), request.getNewName());
-        return ResponseEntity.ok().build();
+    @ResponseBody
+    public ResponseEntity<Map<String, String>> updateBoardName(@RequestBody BoardNameUpdateRequest request) {
+        try {
+            boardService.updateBoardName(request.getBoardTitle(), request.getNewName());
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "게시판 이름이 성공적으로 변경되었습니다.");
+            return ResponseEntity.ok().body(response);
+        } catch (Exception e) {
+            Map<String, String> errorResponse = new HashMap<>();
+            errorResponse.put("message", "게시판 이름 변경에 실패했습니다.");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
+        }
     }
-
 
 }

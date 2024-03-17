@@ -24,14 +24,33 @@ public class HomeController {
     @Autowired
     BoardService boardService;
 
-    String boardTitle1 = "board1";
-    String boardTitle2 = "board2";
-    String boardTitle3 = "board3";
-
     @GetMapping("/")
     public String home(PageDTO page, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        Cookie[] cookies = request.getCookies();
+        checkAndCreateVisitorCookie(request, response);
+
+        addBoardAttributesToModel(model, "board1", page);
+        addBoardAttributesToModel(model, "board2", page);
+        addBoardAttributesToModel(model, "board3", page);
+
+        model.addAttribute("todayCount", visitorCountService.getTodayCount());
+        model.addAttribute("totalCount", visitorCountService.getTotalCount());
+
+        return "index";
+    }
+
+    private void addBoardAttributesToModel(Model model, String boardTitle, PageDTO page) throws Exception {
+        String koreanTitle = boardService.getKoreanTitle(boardTitle);
+        String boardNumber = boardTitle.substring(boardTitle.length() - 1);
+        model.addAttribute("boardTitle" + boardNumber, boardTitle);
+        model.addAttribute("koreanTitle" + boardNumber, koreanTitle);
+        model.addAttribute("page" + boardNumber, boardService.pageSetting(boardTitle, page));
+        model.addAttribute("postList" + boardNumber, boardService.showPostList(boardTitle, page));
+    }
+
+
+    private void checkAndCreateVisitorCookie(HttpServletRequest request, HttpServletResponse response) {
         boolean isVisitor = false;
+        Cookie[] cookies = request.getCookies();
 
         if (cookies != null) {
             for (Cookie cookie : cookies) {
@@ -46,32 +65,15 @@ public class HomeController {
             createVisitorCookie(response);
             visitorCountService.incrementVisitorCount();
         }
-
-        // 각 게시판별 최신글조회
-        model.addAttribute("boardTitle1", boardTitle1);
-        model.addAttribute("page1", boardService.pageSetting(boardTitle1, page));
-        model.addAttribute("postList1", boardService.showPostList(boardTitle1, page));
-        model.addAttribute("boardTitle2", boardTitle2);
-        model.addAttribute("page2", boardService.pageSetting(boardTitle2, page));
-        model.addAttribute("postList2", boardService.showPostList(boardTitle2, page));
-        model.addAttribute("boardTitle3", boardTitle3);
-        model.addAttribute("page3", boardService.pageSetting(boardTitle3, page));
-        model.addAttribute("postList3", boardService.showPostList(boardTitle3, page));
-
-        model.addAttribute("todayCount", visitorCountService.getTodayCount());
-        model.addAttribute("totalCount", visitorCountService.getTotalCount());
-
-        return "index";
     }
+
     private void createVisitorCookie(HttpServletResponse response) {
         Cookie visitorCookie = new Cookie("visitor", "true");
-
-        // 오늘의 자정까지의 시간을 초 단위로 계산
         LocalDateTime midnight = LocalDateTime.of(LocalDate.now().plusDays(1), LocalTime.MIDNIGHT);
         int secondsUntilMidnight = (int) Duration.between(LocalDateTime.now(), midnight).getSeconds();
 
-        visitorCookie.setMaxAge(secondsUntilMidnight); // 자정까지
-        visitorCookie.setPath("/"); // 전체 도메인에서 유효
+        visitorCookie.setMaxAge(secondsUntilMidnight);
+        visitorCookie.setPath("/");
         response.addCookie(visitorCookie);
     }
 
@@ -79,5 +81,4 @@ public class HomeController {
     public String showGuidelines() {
         return "guidelines";
     }
-
 }

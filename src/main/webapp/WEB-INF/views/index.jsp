@@ -19,7 +19,7 @@
             <%@include file="./include/sidebar.jspf" %>
             <div class="col-sm-3">
                 <fieldset class="field1">
-                    <legend><a href="/${boardTitle1}/list">${boardTitle1}</a></legend>
+                    <legend><a href="/${boardTitle1}/list">${koreanTitle1}</a></legend>
                     <table class="boardList" style="width: 100%;">
                         <c:forEach var="post" items="${postList1}">
                             <tr><td><a href="/${boardTitle1}/readPost?postNum=${post.postNum}">${post.title}</a></td></tr>
@@ -29,7 +29,7 @@
             </div>
             <div class="col-sm-3">
                 <fieldset class="field2">
-                    <legend><a href="/${boardTitle2}/list">${boardTitle2}</a></legend>
+                    <legend><a href="/${boardTitle2}/list">${koreanTitle2}</a></legend>
                     <table class="boardList" style="width: 100%;">
                         <c:forEach var="post" items="${postList2}">
                             <tr><td><a href="/${boardTitle2}/readPost?postNum=${post.postNum}">${post.title}</a></td></tr>
@@ -39,7 +39,7 @@
             </div>
             <div class="col-sm-3">
                 <fieldset class="field3">
-                    <legend><a href="/${boardTitle3}/list">${boardTitle3}</a></legend>
+                    <legend><a href="/${boardTitle3}/list">${koreanTitle3}</a></legend>
                     <table class="boardList" style="width: 100%;">
                         <c:forEach var="post" items="${postList3}">
                             <tr><td><a href="/${boardTitle3}/readPost?postNum=${post.postNum}">${post.title}</a></td></tr>

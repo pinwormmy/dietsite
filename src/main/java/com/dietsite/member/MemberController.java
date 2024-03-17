@@ -1,5 +1,7 @@
 package com.dietsite.member;
 
+import com.dietsite.board.BoardListDTO;
+import com.dietsite.board.BoardService;
 import com.dietsite.util.PageDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,10 @@ import java.util.Map;
 public class MemberController {
     @Autowired
     MemberService memberService;
+
+    @Autowired
+    BoardService boardService;
+
     @Autowired
     EmailService emailService;
     @RequestMapping("/login")
@@ -128,7 +134,7 @@ public class MemberController {
 
     @GetMapping("/checkUniqueNickName")
     @ResponseBody
-    public String checkUniqueNickName(String nickName) throws Exception {
+    public String checkUniqueNickName(String nickName) {
         log.info("별명 중복 확인 컨트롤러 작동");
         return memberService.isUniqueNickName(nickName);
     }
@@ -140,6 +146,11 @@ public class MemberController {
         List<MemberDTO> memberList = memberService.getMemberList(page);
         model.addAttribute("memberList", memberList);
         model.addAttribute("pageInfo", page);
+
+        // 게시판 관련 정보
+        List<BoardListDTO> boardList = boardService.getBoardList();
+        model.addAttribute("boardList", boardList);
+
         return "adminPage";
     }
 
